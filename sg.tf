@@ -8,7 +8,7 @@ resource "aws_security_group" "instance-sg" {
   }
   ingress {
     from_port = 80
-    protocol = "HTTP"
+    protocol = "tcp"
     to_port = 80
     cidr_blocks = ["0.0.0.0/0"]
   }
