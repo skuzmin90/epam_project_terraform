@@ -1,3 +1,7 @@
+resource "aws_db_subnet_group" "db-group" {
+  subnet_ids = [aws_subnet.private-subnet-1.id, aws_subnet.public-subnet-1.id]
+}
+
 resource "aws_db_instance" "postgresql" {
   instance_class = "db.t2.micro"
   engine = "postgres"
@@ -9,7 +13,9 @@ resource "aws_db_instance" "postgresql" {
   password = "SSpassword"
   skip_final_snapshot = true
   vpc_security_group_ids = [aws_security_group.database-sg.id]
+  db_subnet_group_name = aws_db_subnet_group.db-group.name
   tags = {
     Name = "PostgreSQL"
   }
 }
+
