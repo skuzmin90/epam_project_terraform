@@ -4,7 +4,7 @@ resource "aws_instance" "ec2-webapp-1" {
   security_groups = [aws_security_group.instance-sg.id]
   subnet_id = aws_subnet.public-subnet-1.id
   associate_public_ip_address =  "true"
-  user_data = templatefile("${file("create_docker_app.sh")}", {
+  user_data = templatefile("create_docker_app.sh", {
     "db_name" = "${aws_db_instance.postgresql.name}"
     "db_user" = "${aws_db_instance.postgresql.username}"
     "db_password" = "${aws_db_instance.postgresql.password}"
