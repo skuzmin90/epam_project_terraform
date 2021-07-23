@@ -17,6 +17,7 @@ resource "aws_instance" "ec2-webapp-1" {
   associate_public_ip_address =  "true"
   user_data = "${file("create_docker_app.sh")}"
   key_name = "${var.keyname}"
+  depends_on = [aws_db_instance.postgresql]
   tags = {
     Name = "webapp-1"
   }
