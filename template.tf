@@ -1,5 +1,5 @@
 data "template_file" "script-var" {
-  template = "${file("env.dev")}"
+  template = "${file("create_docker_app.sh")}"
   vars = {
     "db_name" = "${aws_db_instance.postgresql.name}"
     "db_user" = "${aws_db_instance.postgresql.username}"
