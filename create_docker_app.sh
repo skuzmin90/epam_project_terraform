@@ -5,6 +5,6 @@ sudo systemctl enable --now docker.service
 sudo mkdir /epam_project && cd /epam_project
 sudo git clone https://github.com/skuzmin90/epam_project_python.git
 cd ./epam_project_python
-sudo pwd >> test.txt
+sudo echo "${db_name}\n${db_password}\n${db_host}\n${db_port}" >> test.txt
 sudo docker build -t webapp .
-sudo docker run --name webapp -p 80:5000 -d --env-file env.dev webapp
+sudo docker run --name webapp -p 80:5000 -d webapp
