@@ -22,7 +22,7 @@ resource "aws_subnet" "public-subnet-1" {
 resource "aws_subnet" "public-subnet-2" {
   cidr_block = "10.10.3.0/24"
   vpc_id = aws_vpc.vpc.id
-  availability_zone = "us-east-1a"
+  availability_zone = "us-east-1b"
   map_public_ip_on_launch = "true"
   tags = {
     Name = "public-subnet-2"
