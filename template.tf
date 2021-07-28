@@ -7,5 +7,6 @@ data "template_file" "script-var" {
     "db_host" = "${aws_db_instance.postgresql.address}"
     "db_port" = "${aws_db_instance.postgresql.port}"
   }
+  depends_on = [aws_db_instance.postgresql]
 }
 
