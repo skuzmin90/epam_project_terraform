@@ -12,7 +12,7 @@ resource "aws_instance" "ec2-webapp-1" {
     "db_port" = "${aws_db_instance.postgresql.port}"
   })
   key_name = "${var.keyname}"
-  depends_on = [aws_db_instance.postgresql]
+  depends_on = [data.template_file.script-var]
   tags = {
     Name = "webapp-1"
   }
