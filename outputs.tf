@@ -7,3 +7,6 @@ output "db_address" {
 output "db_endpoint" {
   value = aws_db_instance.postgresql.endpoint
 }
+output "alb_address" {
+  value = aws_alb.alb.dns_name
+}
