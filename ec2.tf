@@ -37,3 +37,14 @@ resource "aws_instance" "ec2-webapp-2" {
     Name = "webapp-2"
   }
 }
+
+resource "aws_route53_zone" "public" {
+  name = "skuzmindevops.com"
+}
+
+resource "aws_route53_record" "dns-name" {
+  zone_id = aws_route53_zone.public.zone_id
+  name    = "www.skuzmindevops.com"
+  type    = "A"
+  ttl     = "300"
+}
