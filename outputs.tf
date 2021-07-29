@@ -11,5 +11,5 @@ output "alb_address" {
   value = aws_alb.alb.dns_name
 }
 output "dns_name" {
-  value = aws_route53_record.dns-name.name
+  value = aws_route53_record.dev-ns.name
 }
