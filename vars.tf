@@ -22,14 +22,14 @@ variable "AWS_SECRET_ACCESS_KEY" {
   type = string
 }
 
-variable "db_name" {
+variable "DB_NAME" {
   type = string
 }
 
-variable "db_password" {
+variable "DB_PASSWORD" {
   type = string
 }
 
-variable "db_user" {
+variable "DB_USER" {
   type = string
 }

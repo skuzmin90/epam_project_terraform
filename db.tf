@@ -8,9 +8,9 @@ resource "aws_db_instance" "postgresql" {
   engine_version = "10.17"
   allocated_storage = 10
   max_allocated_storage = 25
-  db_name = var.db_name
-  db_username = var.db_user
-  db_password = var.db_password
+  db_name = "${var.DB_NAME}"
+  db_username = "${var.DB_USER}"
+  db_password = "${var.DB_PASSWORD}"
   skip_final_snapshot = true
   vpc_security_group_ids = [aws_security_group.database-sg.id]
   db_subnet_group_name = aws_db_subnet_group.db-group.name
