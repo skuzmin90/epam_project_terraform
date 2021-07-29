@@ -1,17 +1,17 @@
-variable "region" {
-  default = "us-east-1"
+variable "REGION" {
+  type = string
 }
 
-variable "ami" {
-  default = "ami-0dc2d3e4c0f9ebd18"
+variable "AMI" {
+  type = string
 }
 
-variable "instance_type" {
-  default = "t2.micro"
+variable "INSTANCE_TYPE" {
+  type = string
 }
 
-variable "keyname" {
-  default = "testKEY"
+variable "KEYNAME" {
+  type = string
 }
 
 variable "AWS_ACCESS_KEY_ID" {

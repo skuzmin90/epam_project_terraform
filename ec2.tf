@@ -1,6 +1,6 @@
 resource "aws_instance" "ec2-webapp-1" {
-  ami = "${var.ami}"
-  instance_type = "${var.instance_type}"
+  ami = "${var.AMI}"
+  instance_type = "${var.INSTANCE_TYPE}"
   security_groups = [aws_security_group.instance-sg.id]
   subnet_id = aws_subnet.public-subnet-1.id
   associate_public_ip_address =  "true"
@@ -11,7 +11,7 @@ resource "aws_instance" "ec2-webapp-1" {
     "db_host" = "${aws_db_instance.postgresql.address}"
     "db_port" = "${aws_db_instance.postgresql.port}"
   })
-  key_name = "${var.keyname}"
+  key_name = "${var.KEYNAME}"
   depends_on = [data.template_file.script-var]
   tags = {
     Name = "webapp-1"
@@ -19,8 +19,8 @@ resource "aws_instance" "ec2-webapp-1" {
 }
 
 resource "aws_instance" "ec2-webapp-2" {
-  ami = "${var.ami}"
-  instance_type = "${var.instance_type}"
+  ami = "${var.AMI}"
+  instance_type = "${var.INSTANCE_TYPE}"
   security_groups = [aws_security_group.instance-sg.id]
   subnet_id = aws_subnet.public-subnet-2.id
   associate_public_ip_address =  "true"
@@ -31,9 +31,9 @@ resource "aws_instance" "ec2-webapp-2" {
     "db_host" = "${aws_db_instance.postgresql.address}"
     "db_port" = "${aws_db_instance.postgresql.port}"
   })
-  key_name = "${var.keyname}"
+  key_name = "${var.KEYNAME}"
   depends_on = [data.template_file.script-var]
   tags = {
-    Name = "webapp-1"
+    Name = "webapp-2"
   }
 }
