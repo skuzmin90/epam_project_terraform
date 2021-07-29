@@ -38,21 +38,3 @@ resource "aws_instance" "ec2-webapp-2" {
   }
 }
 
-resource "aws_route53_zone" "main" {
-  name = "skuzmin.com"
-}
-
-resource "aws_route53_zone" "dev" {
-  name = "skuzmin.devops.com"
-  tags = {
-    Environment = "dev"
-  }
-}
-
-resource "aws_route53_record" "dev-ns" {
-  zone_id = aws_route53_zone.main.zone_id
-  name    = "skuzmin.devops.com"
-  type    = "NS"
-  ttl     = "30"
-  records = aws_route53_zone.dev.name_servers
-}
