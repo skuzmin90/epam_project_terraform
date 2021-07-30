@@ -4,7 +4,7 @@ resource "aws_alb" "alb" {
   load_balancer_type = "application"
   security_groups    = [aws_security_group.alb-sg.id]
   subnets = [aws_subnet.public-subnet-1.id,aws_subnet.public-subnet-2.id]
-  enable_cross_zone_load_balancing = true
+//  enable_cross_zone_load_balancing = true
 
   enable_deletion_protection = false
 
@@ -20,6 +20,7 @@ resource "aws_alb" "alb" {
 }
 
 resource "aws_alb_target_group" "alb-tg" {
+  name = "alb-target"
   target_type = "instance"
   vpc_id = aws_vpc.vpc.id
   protocol = "HTTP"
