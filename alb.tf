@@ -25,7 +25,6 @@ resource "aws_alb_target_group" "alb-tg" {
   vpc_id = aws_vpc.vpc.id
   protocol = "HTTP"
   port = 80
-
   health_check {
     protocol = "HTTP"
     path = "/"
@@ -35,6 +34,13 @@ resource "aws_alb_target_group" "alb-tg" {
     interval = 30
   }
 }
+
+resource "aws_alb_target_group_attachment" "alb-tg-attach" {
+  target_group_arn = aws_alb_target_group.alb-tg.arn
+  target_id        = [aws_instance.ec2-webapp-1.id, aws_instance.ec2-webapp-2.id]
+  port             = 80
+}
+
 
 resource "aws_alb_listener" "listener_http" {
   load_balancer_arn = aws_alb.alb.arn
