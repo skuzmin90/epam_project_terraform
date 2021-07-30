@@ -35,12 +35,18 @@ resource "aws_alb_target_group" "alb-tg" {
   }
 }
 
-resource "aws_alb_target_group_attachment" "alb-tg-attach" {
+resource "aws_alb_target_group_attachment" "alb-tg-attach-1" {
   target_group_arn = aws_alb_target_group.alb-tg.arn
   target_id        = aws_instance.ec2-webapp-1.id
+  port             = 80
+  depends_on = [aws_instance.ec2-webapp-1]
+}
+
+resource "aws_alb_target_group_attachment" "alb-tg-attach-2" {
+  target_group_arn = aws_alb_target_group.alb-tg.arn
   target_id        = aws_instance.ec2-webapp-2.id
   port             = 80
-  depends_on = [aws_instance.ec2-webapp-1, aws_instance.ec2-webapp-2]
+  depends_on = [aws_instance.ec2-webapp-2]
 }
 
 
