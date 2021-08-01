@@ -17,17 +17,17 @@ POLICY
 }
 
 resource "aws_iam_role_policy_attachment" "eks-worker-node-policy" {
-  policy_arn = "arn:aws:iam:aws:policy/AmazonEKSWorkerNodePolicy"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"
   role = aws_iam_role.nodes-general.name
 }
 
 resource "aws_iam_role_policy_attachment" "eks-cni-node-policy" {
-  policy_arn = "arn:aws:iam:aws:policy/AmazonEKS_CNI_Policy"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy"
   role = aws_iam_role.nodes-general.name
 }
 
 resource "aws_iam_role_policy_attachment" "ec2-container-registry-read-only" {
-  policy_arn = "arn:aws:iam:aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
   role = aws_iam_role.nodes-general.name
 }
 
@@ -51,8 +51,8 @@ resource "aws_eks_node_group" "nodes-general" {
   }
   version = "1.18"
   depends_on = [
-  aws_iam_role_policy_attachment.eks-worker-node-policy,
-  aws_iam_role_policy_attachment.eks-cni-node-policy,
-  aws_iam_role_policy_attachment.ec2-container-registry-read-only,
+    aws_iam_role_policy_attachment.eks-worker-node-policy,
+    aws_iam_role_policy_attachment.eks-cni-node-policy,
+    aws_iam_role_policy_attachment.ec2-container-registry-read-only,
   ]
 }
