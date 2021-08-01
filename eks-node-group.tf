@@ -32,21 +32,24 @@ resource "aws_iam_role_policy_attachment" "ec2-container-registry-read-only" {
 }
 
 resource "aws_eks_node_group" "nodes-general" {
-  cluster_name = aws_eks_cluster.eks.name
+  cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "nodes"
-  node_role_arn = aws_iam_role.nodes-general.arn
-  subnet_ids = [aws_subnet.private-1.id,aws_subnet.private-2.id]
+  node_role_arn   = aws_iam_role.nodes-general.arn
+  subnet_ids      = [
+    aws_subnet.private-1.id,
+    aws_subnet.private-2.id
+  ]
   scaling_config {
-    desired_size = 1
-    max_size = 1
-    min_size = 1
+    desired_size = 2
+    max_size     = 2
+    min_size     = 1
   }
-  ami_type = "AL2_x86_64"
-  capacity_type = "ON_DEMAND"
-  disk_size = 20
+  ami_type             = "AL2_x86_64"
+  capacity_type        = "ON_DEMAND"
+  disk_size            = 20
   force_update_version = false
-  instance_types = ["${var.INSTANCE_TYPE}"]
-  labels = {
+  instance_types       = ["t3.small"]
+  labels               = {
     role = "nodes-general"
   }
   version = "1.18"
