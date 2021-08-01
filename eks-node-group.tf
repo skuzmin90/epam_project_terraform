@@ -41,7 +41,7 @@ resource "aws_eks_node_group" "nodes-general" {
     max_size = 1
     min_size = 1
   }
-  ami_type = "${var.AMI}"
+  ami_type = "AL2_x86_64"
   capacity_type = "ON_DEMAND"
   disk_size = 20
   force_update_version = false
