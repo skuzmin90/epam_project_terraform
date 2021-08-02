@@ -11,7 +11,7 @@ resource "aws_subnet" "public-1" {
   cidr_block = "10.10.1.0/24"
   vpc_id = aws_vpc.vpc.id
   availability_zone = "us-east-1a"
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = true
   tags = {
     Name                        = "public-us-east-1a"
     "kubernetes.io/cluster/eks" = "shared"
@@ -22,7 +22,7 @@ resource "aws_subnet" "public-2" {
   cidr_block = "10.10.2.0/24"
   vpc_id = aws_vpc.vpc.id
   availability_zone = "us-east-1b"
-  map_public_ip_on_launch = "true"
+  map_public_ip_on_launch = true
   tags = {
     Name                        = "public-us-east-1b"
     "kubernetes.io/cluster/eks" = "shared"

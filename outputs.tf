@@ -13,3 +13,7 @@
 //output "dns_name" {
 //  value = aws_route53_record.terraform.name
 //}
+
+output "endpoint" {
+  value = aws_eks_cluster.eks.endpoint
+}
