@@ -46,9 +46,9 @@ resource "aws_eks_node_group" "nodes-general" {
   }
   ami_type             = "AL2_x86_64"
   capacity_type        = "ON_DEMAND"
-  disk_size            = 20
+  disk_size            = 10
   force_update_version = false
-  instance_types       = ["t3.small"]
+  instance_types       = ["t2.micro"]
   labels               = {
     role = "nodes-general"
   }
@@ -58,4 +58,7 @@ resource "aws_eks_node_group" "nodes-general" {
     aws_iam_role_policy_attachment.eks-cni-node-policy,
     aws_iam_role_policy_attachment.ec2-container-registry-read-only,
   ]
+  tags = {
+    Name = "nodes-general"
+  }
 }
