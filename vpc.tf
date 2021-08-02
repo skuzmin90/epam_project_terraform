@@ -1,53 +1,13 @@
 resource "aws_vpc" "vpc" {
-  cidr_block           = "10.10.0.0/16"
-  enable_dns_hostnames = true
-  enable_dns_support   = true
+  cidr_block                       = "10.10.0.0/16"
+  enable_dns_hostnames             = true
+  enable_dns_support               = true
+  instance_tenancy                 = "default"
+  enable_classiclink               = false
+  enable_classiclink_dns_support   = false
+  assign_generated_ipv6_cidr_block = false
   tags = {
     Name = "vpc"
-  }
-}
-
-resource "aws_subnet" "public-1" {
-  cidr_block = "10.10.1.0/24"
-  vpc_id = aws_vpc.vpc.id
-  availability_zone = "us-east-1a"
-  map_public_ip_on_launch = true
-  tags = {
-    Name                        = "public-us-east-1a"
-    "kubernetes.io/cluster/eks" = "shared"
-    "kubernetes.io/role/elb"    = 1
-  }
-}
-resource "aws_subnet" "public-2" {
-  cidr_block = "10.10.2.0/24"
-  vpc_id = aws_vpc.vpc.id
-  availability_zone = "us-east-1b"
-  map_public_ip_on_launch = true
-  tags = {
-    Name                        = "public-us-east-1b"
-    "kubernetes.io/cluster/eks" = "shared"
-    "kubernetes.io/role/elb"    = 1
-  }
-}
-resource "aws_subnet" "private-1" {
-  cidr_block = "10.10.3.0/24"
-  vpc_id = aws_vpc.vpc.id
-  availability_zone = "us-east-1a"
-  tags = {
-    Name                              = "private-us-east-1a"
-    "kubernetes.io/cluster/eks"       = "shared"
-    "kubernetes.io/role/internal-elb" = 1
-  }
-}
-
-resource "aws_subnet" "private-2" {
-  cidr_block = "10.10.4.0/24"
-  vpc_id = aws_vpc.vpc.id
-  availability_zone = "us-east-1b"
-  tags = {
-    Name                              = "private-us-east-1b"
-    "kubernetes.io/cluster/eks"       = "shared"
-    "kubernetes.io/role/internal-elb" = 1
   }
 }
 
@@ -71,8 +31,8 @@ resource "aws_route_table" "public-rt" {
 resource "aws_route_table" "private-rt-1" {
   vpc_id = aws_vpc.vpc.id
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.gw-1.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw-1.id
   }
   tags = {
     Name = "private-rt-1"
@@ -82,27 +42,27 @@ resource "aws_route_table" "private-rt-1" {
 resource "aws_route_table" "private-rt-2" {
   vpc_id = aws_vpc.vpc.id
   route {
-    cidr_block = "0.0.0.0/0"
-    gateway_id = aws_nat_gateway.gw-2.id
+    cidr_block     = "0.0.0.0/0"
+    nat_gateway_id = aws_nat_gateway.gw-2.id
   }
   tags = {
     Name = "private-rt-2"
   }
 }
 
-resource "aws_route_table_association" "public-association" {
+resource "aws_route_table_association" "public-association-1" {
   route_table_id = aws_route_table.public-rt.id
-  subnet_id = aws_subnet.public-1.id
+  subnet_id      = aws_subnet.public-1.id
 }
 resource "aws_route_table_association" "public-association-2" {
   route_table_id = aws_route_table.public-rt.id
-  subnet_id = aws_subnet.public-2.id
+  subnet_id      = aws_subnet.public-2.id
 }
 resource "aws_route_table_association" "private-association-1" {
   route_table_id = aws_route_table.private-rt-1.id
-  subnet_id = aws_subnet.private-1.id
+  subnet_id      = aws_subnet.private-1.id
 }
 resource "aws_route_table_association" "private-association-2" {
   route_table_id = aws_route_table.private-rt-2.id
-  subnet_id = aws_subnet.private-2.id
+  subnet_id      = aws_subnet.private-2.id
 }
