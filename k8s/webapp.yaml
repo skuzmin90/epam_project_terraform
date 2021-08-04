@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: webapp
-          image: archi90/epam_devops_forecast_app:latest
+          image: nginx:1.14.2
           ports:
             - containerPort: 80
 
