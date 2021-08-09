@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: flask-webapp
-          image: archi90/flask-webapp-aws:latest
+          image: archi90/flask-webapp-master:latest
           ports:
             - containerPort: 5000
 
