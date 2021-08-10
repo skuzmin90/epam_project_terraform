@@ -27,9 +27,7 @@ variable "DB_NAME" {
 }
 
 variable "DB_PASSWORD" {
-  description = "Database administrator username"
-  type        = string
-  sensitive   = true
+  default = "SSpassword"
 }
 
 variable "DB_USER" {
