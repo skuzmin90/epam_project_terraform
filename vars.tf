@@ -14,21 +14,21 @@ variable "KEYNAME" {
   default = "testKEY"
 }
 
-variable "AWS_ACCESS_KEY_ID" {
-  type = string
-}
-
-variable "AWS_SECRET_ACCESS_KEY" {
-  type = string
-}
+//variable "AWS_ACCESS_KEY_ID" {
+//  type = string
+//}
+//
+//variable "AWS_SECRET_ACCESS_KEY" {
+//  type = string
+//}
 
 variable "DB_NAME" {
   default = "weather"
 }
 
-variable "DB_PASSWORD" {
-  type = string
-}
+//variable "DB_PASSWORD" {
+//  type = string
+//}
 
 variable "DB_USER" {
   default = "epam"
