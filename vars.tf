@@ -1,17 +1,17 @@
 variable "REGION" {
-  default = "us-east-1"
+  type = string
 }
 
 variable "AMI" {
-  default = "ami-0dc2d3e4c0f9ebd18"
+  type = string
 }
 
 variable "INSTANCE_TYPE" {
-  default = "t2.micro"
+  type = string
 }
 
 variable "KEYNAME" {
-  default = "testKEY"
+  type = string
 }
 
 variable "AWS_ACCESS_KEY_ID" {
@@ -23,13 +23,13 @@ variable "AWS_SECRET_ACCESS_KEY" {
 }
 
 variable "DB_NAME" {
-  default = "weather"
+  type = string
 }
 
 variable "DB_PASSWORD" {
-  default = "SSpassword"
+  type = string
 }
 
 variable "DB_USER" {
-  default = "epam"
+  type = string
 }
