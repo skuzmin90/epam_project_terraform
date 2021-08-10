@@ -26,9 +26,11 @@ variable "DB_NAME" {
   default = "weather"
 }
 
-//variable "DB_PASSWORD" {
-//  type = string
-//}
+variable "DB_PASSWORD" {
+  description = "Database administrator username"
+  type        = string
+  sensitive   = true
+}
 
 variable "DB_USER" {
   default = "epam"
