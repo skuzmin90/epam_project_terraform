@@ -84,7 +84,7 @@ jobs:
           echo "Hello from ${{ env.VPC_ID }}"
 
       - name: Update webapp.yaml
-        working-directory: ./k8s
+        working-directory: ../k8s
         run: |
           ls
           cat webapp.yaml
