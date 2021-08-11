@@ -78,7 +78,7 @@ jobs:
 
       - name: Print previous var
         run: |
-          echo "Hello from ${{ VPC_ID }}"
+          echo "Hello from ${{ env.VPC_ID }}"
 #
 #      - name: Update config for eks cluster
 #        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
