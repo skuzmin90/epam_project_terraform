@@ -55,42 +55,47 @@ jobs:
         id: terraform-output
         run: terraform output vpc_id
 
+      - name: Print output
+        run: |
+          echo "${{ steps.terraform-output.outputs.vpc_id }}"
+          echo ${{ steps.terraform-output.outputs.vpc_id }}
+          "echo ${{ steps.terraform-output.outputs.vpc_id }}"
 
-    outputs:
-      vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
+#    outputs:
+#      vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
 
-  aws_eks:
-    needs: [terraform]
-    runs-on: ubuntu-latest
-    steps:
-#      - name: Install AWS-cli
+#  aws_eks:
+#    needs: [terraform]
+#    runs-on: ubuntu-latest
+#    steps:
+##      - name: Install AWS-cli
+##        run: |
+##          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+##          unzip -qq awscliv2.zip
+##          sudo ./aws/install
+#
+#      - name: Check version
+#        run: aws --version
+#
+#      - name: Update config for eks cluster
+#        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
+#
+#      - name: Run echo from previous step
 #        run: |
-#          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-#          unzip -qq awscliv2.zip
-#          sudo ./aws/install
-
-      - name: Check version
-        run: aws --version
-
-      - name: Update config for eks cluster
-        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
-
-      - name: Run echo from previous step
-        run: |
-          echo ${{ needs.terraform.outputs.vpc_id }}
-          echo ${{ needs.terraform.outputs.vpc_id }}
-
-  k8s:
-    needs: [aws_eks]
-    runs-on: ubuntu-latest
-    steps:
-      - name: Get all nodes
-        run: kubectl get nodes
-
-      - name: Create flask-webapp Deployment
-        run: |
-          kubectl apply -f ./k8s/webapp.yaml
-          kubectl get all
+#          echo ${{ needs.terraform.outputs.vpc_id }}
+#          echo ${{ needs.terraform.outputs.vpc_id }}
+#
+#  k8s:
+#    needs: [aws_eks]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Get all nodes
+#        run: kubectl get nodes
+#
+#      - name: Create flask-webapp Deployment
+#        run: |
+#          kubectl apply -f ./k8s/webapp.yaml
+#          kubectl get all
 
 
 
