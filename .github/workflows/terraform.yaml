@@ -59,27 +59,33 @@ jobs:
         run: |
           echo "${{ steps.terraform-output.outputs.VPC_ID }}"
 
-#    outputs:
-#      vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
+    outputs:
+      vpc_id: "${{ steps.terraform-output.outputs.VPC-ID }}"
 
-#  aws_eks:
-#    needs: [terraform]
-#    runs-on: ubuntu-latest
-#    steps:
-##      - name: Install AWS-cli
-##        run: |
-##          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-##          unzip -qq awscliv2.zip
-##          sudo ./aws/install
-#
-#      - name: Check version
-#        run: aws --version
+  aws_eks:
+    needs: [terraform]
+    runs-on: ubuntu-latest
+    steps:
+#      - name: Install AWS-cli
+#        run: |
+#          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+#          unzip -qq awscliv2.zip
+#          sudo ./aws/install
+
+      - name: Check version
+        run: aws --version
+
+      - name: Print previous var
+        env:
+          VPC_ID: "${{ needs.terraform.outputs.vpc_id }}"
+        run: |
+          echo "Hello from ${{ VPC_ID }}"
 #
 #      - name: Update config for eks cluster
 #        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
 #
-#      - name: Run echo from previous step
-#        run: |
+#      - name: Run echo from previous st
+#run: |
 #          echo ${{ needs.terraform.outputs.vpc_id }}
 #          echo ${{ needs.terraform.outputs.vpc_id }}
 #
