@@ -18,16 +18,16 @@ output "vpc_id" {
   value       = aws_vpc.vpc.id
   description = "VPC id"
 }
-//
-//output "endpoint" {
-//  value = aws_eks_cluster.eks.endpoint
-//}
-//
-//output "db_endpoint" {
-//  value       = aws_db_instance.postgresql.endpoint
-//  description = "Database endpoint"
-//}
-//
-//output "db_address" {
-//  value = aws_db_instance.postgresql.address
-//}
+
+output "endpoint" {
+  value = aws_eks_cluster.eks.endpoint
+}
+
+output "db_endpoint" {
+  value       = aws_db_instance.postgresql.endpoint
+  description = "Database endpoint"
+}
+
+output "db_address" {
+  value = aws_db_instance.postgresql.address
+}
