@@ -58,6 +58,7 @@ jobs:
       - name: Print output
         run: |
           echo "${{ steps.terraform-output.outputs.vpc_id }}"
+          echo "VPC_ID=${{ needs.terraform.outputs.vpc_id }}" >> $GITHUB_ENV
 
     outputs:
       vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
@@ -76,8 +77,6 @@ jobs:
         run: aws --version
 
       - name: Print previous var
-        env:
-          VPC_ID: "${{ needs.terraform.outputs.vpc_id }}"
         run: |
           echo "Hello from ${{ VPC_ID }}"
 #
