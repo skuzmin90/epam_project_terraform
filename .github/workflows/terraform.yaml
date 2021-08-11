@@ -53,7 +53,7 @@ jobs:
 
       - name: Terraform Output
         id: terraform-output
-        run: echo "::set-output name=VPC_ID::${ terraform output vpc_id }"
+        run: echo ::set-output name=VPC_ID::$(terraform output vpc_id)
 
       - name: Print output
         run: |
