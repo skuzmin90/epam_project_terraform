@@ -84,7 +84,9 @@ jobs:
           echo "Hello from ${{ env.VPC_ID }}"
 
       - name: Update webapp.yaml
-        run: cat ./k8s/webapp.yaml
+        run: |
+          ls
+          cat /k8s/webapp.yaml
 
 #
 #      - name: Update config for eks cluster
