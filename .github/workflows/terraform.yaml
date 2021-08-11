@@ -58,7 +58,6 @@ jobs:
       - name: Print output
         run: |
           echo "${{ steps.terraform-output.outputs.vpc_id }}"
-          echo "VPC_ID=${{ needs.terraform.outputs.vpc_id }}" >> $GITHUB_ENV
 
     outputs:
       vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
@@ -72,6 +71,9 @@ jobs:
 #          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
 #          unzip -qq awscliv2.zip
 #          sudo ./aws/install
+      - name: Set env
+        run: |
+          echo "VPC_ID=${{ needs.terraform.outputs.vpc_id }}" >> $GITHUB_ENV
 
       - name: Check version
         run: aws --version
