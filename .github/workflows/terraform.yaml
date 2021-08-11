@@ -47,14 +47,26 @@ jobs:
         run: terraform plan
 #        continue-on-error: true
 
-      - name: Terraform Apply
+      - name: Terraform_Apply
         run: terraform apply -auto-approve
 
-#  aws_eks:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Install AWS-cli
-#        run:
+  aws_eks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install AWS-cli
+        run: |
+        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+        unzip awscliv2.zip
+        sudo ./aws/install
+
+      - name: Check version
+        run: aws --version
+
+#      - name: Update config for eks cluster
+#        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
+
+      - name: Run echo from previous step
+        run: echo "${{ steps.Terraform_Apply.output.vpc_id }}"
 
 
 
