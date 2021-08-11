@@ -67,6 +67,7 @@ jobs:
     needs: [terraform]
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
 #      - name: Install AWS-cli
 #        run: |
 #          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
@@ -84,9 +85,9 @@ jobs:
           echo "Hello from ${{ env.VPC_ID }}"
 
       - name: Update webapp.yaml
-        working-directory: k8s
+        working-directory: ./k8s
         run: |
-          ls
+          ls -la
           cat ./webapp.yaml
 
 #
