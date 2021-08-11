@@ -87,7 +87,7 @@ jobs:
       - name: Update webapp.yaml
         working-directory: ./k8s
         run: |
-          ls -la
+          envsubst < webapp.yaml
           cat ./webapp.yaml
 
 #
