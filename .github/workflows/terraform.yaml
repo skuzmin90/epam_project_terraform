@@ -53,7 +53,10 @@ jobs:
 
       - name: Terraform Output
         id: terraform-output
-        run: terraform output
+        run: |
+          output=$(terraform output vpc_id)
+          echo $output
+
 
     outputs:
       vpc_id: ${{ steps.terraform-output.outputs.vpc_id }}
