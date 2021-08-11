@@ -47,7 +47,8 @@ jobs:
         run: terraform plan
 #        continue-on-error: true
 
-      - name: Terraform_Apply
+      - name: Terraform Apply
+        id: terraform_apply
         run: terraform apply -auto-approve
 
   aws_eks:
@@ -67,9 +68,7 @@ jobs:
 #        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
 
       - name: Run echo from previous step
-        run: echo "${{ steps.Terraform_Apply.output.vpc_id }}"
-
-
+        run: echo "${{ steps.terraform_apply.output.vpc_id }}"
 
         #      - name: Update Pull Request
 #        uses: actions/github-script@0.9.0
