@@ -54,11 +54,11 @@ jobs:
     needs: [terraform]
     runs-on: ubuntu-latest
     steps:
-      - name: Install AWS-cli
-        run: |
-          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-          unzip -qq awscliv2.zip
-          sudo ./aws/install
+#      - name: Install AWS-cli
+#        run: |
+#          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
+#          unzip -qq awscliv2.zip
+#          sudo ./aws/install
 
       - name: Check version
         run: aws --version
