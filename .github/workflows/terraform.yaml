@@ -51,8 +51,12 @@ jobs:
         id: terraform-apply
         run: terraform apply -auto-approve
 
+      - name: Terraform Output
+        id: terraform-output
+        run: terraform output
+
     outputs:
-      vpc_id: ${{ steps.terraform-apply.outputs.vpc_id }}
+      vpc_id: ${{ steps.terraform-output.outputs.vpc_id }}
 
   aws_eks:
     needs: [terraform]
@@ -71,7 +75,9 @@ jobs:
 #        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
 
       - name: Run echo from previous step
-        run: echo ${{ needs.terraform.outputs.vpc_id }}
+        run: |
+          echo ${{ needs.terraform.outputs.vpc_id }}
+          echo "${{ needs.terraform.outputs.vpc_id }}"
 
         #      - name: Update Pull Request
 #        uses: actions/github-script@0.9.0
