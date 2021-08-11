@@ -16,7 +16,10 @@ spec:
         app: webapp
     spec:
       containers:
-        - name: flask-webapp
+        - env:
+          - name: vpc id
+            value: ${ VPC_ID }
+          name: flask-webapp
           image: archi90/flask-webapp-master:latest
           ports:
             - containerPort: 5000
