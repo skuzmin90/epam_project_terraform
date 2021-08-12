@@ -55,18 +55,12 @@ jobs:
       - name: Terraform Output
         id: terraform-output
         run: |
-          echo ::set-output name=vpc_id::$(terraform output vpc_id)
           echo ::set-output name=db_host::$(terraform output db_host)
           echo ::set-output name=db_name::$(terraform output db_name)
           echo ::set-output name=db_user::$(terraform output db_user)
           echo ::set-output name=db_password::$(terraform output db_password)
 
-#      - name: Print output
-#        run: |
-#          echo "${{ steps.terraform-output.outputs.vpc_id }}"
-
     outputs:
-      vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
       db_host: "${{ steps.terraform-output.outputs.db_host }}"
       db_name: "${{ steps.terraform-output.outputs.db_name }}"
       db_user: "${{ steps.terraform-output.outputs.db_user }}"
@@ -78,48 +72,32 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-#      - name: Install AWS-cli
-#        run: |
-#          curl https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip -o awscliv2.zip
-#          unzip -qq awscliv2.zip
-#          sudo ./aws/install
+      - name: Check version
+        run: aws --version
+
+      - name: Update config for eks cluster
+        run: aws eks --region us-east-1 update-kubeconfig --name eks
+
+  k8s:
+    needs: [aws_eks]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
       - name: Set env
         run: |
-          echo "VPC_ID=${{ needs.terraform.outputs.vpc_id }}" >> $GITHUB_ENV
           echo "DB_HOST=${{ needs.terraform.outputs.db_host }}" >> $GITHUB_ENV
           echo "DB_NAME=${{ needs.terraform.outputs.db_name }}" >> $GITHUB_ENV
           echo "DB_USER=${{ needs.terraform.outputs.db_user }}" >> $GITHUB_ENV
           echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
 
-      - name: Check version
-        run: aws --version
+      - name: Get all nodes
+        run: kubectl get nodes
 
-      - name: Update webapp.yaml
+      - name: Create flask-webapp Deployment
         working-directory: ./k8s
         run: |
-          envsubst < webapp.yaml
-          cat ./webapp.yaml
-
-#
-#      - name: Update config for eks cluster
-#        run: aws.exe eks --region us-east-1 update-kubeconfig --name eks
-#
-#      - name: Run echo from previous st
-#run: |
-#          echo ${{ needs.terraform.outputs.vpc_id }}
-#          echo ${{ needs.terraform.outputs.vpc_id }}
-#
-#  k8s:
-#    needs: [aws_eks]
-#    runs-on: ubuntu-latest
-#    steps:
-#      - name: Get all nodes
-#        run: kubectl get nodes
-#
-#      - name: Create flask-webapp Deployment
-#        run: |
-#          kubectl apply -f ./k8s/webapp.yaml
-#          kubectl get all
+          cat webapp.yaml | envsubst | kubectl apply -f -
+          kubectl get all
 
 
 

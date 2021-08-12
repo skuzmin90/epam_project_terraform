@@ -20,10 +20,6 @@ output "vpc_id" {
 }
 
 output "db_host" {
-  value = aws_db_instance.postgresql.endpoint
-}
-
-output "db_host_2" {
   value = aws_db_instance.postgresql.address
 }
 
@@ -39,6 +35,10 @@ output "db_password" {
   value = aws_db_instance.postgresql.password
   sensitive = true
 }
+
+//output "eks_name" {
+//  value = aws_eks_cluster.eks.name
+//}
 
 //
 //output "endpoint" {
