@@ -60,6 +60,12 @@ jobs:
           echo ::set-output name=db_user::$(terraform output db_user)
           echo ::set-output name=db_password::$(terraform output db_password)
 
+      - name: Check version
+        run: aws --version
+
+      - name: Update config for eks cluster
+        run: aws eks update-kubeconfig --name eks
+
     outputs:
       db_host: "${{ steps.terraform-output.outputs.db_host }}"
       db_name: "${{ steps.terraform-output.outputs.db_name }}"
@@ -67,31 +73,31 @@ jobs:
       db_password: "${{ steps.terraform-output.outputs.db_password }}"
 
 
-  aws_eks:
-    needs: [terraform]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v1
-        with:
-          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
-          terraform_wrapper: false
-
-      - name: Terraform Init
-        id: init
-        run: terraform init
-
-      - name: Terraform Validate
-        id: validate
-        run: terraform validate -no-color
-
-      - name: Check version
-        run: aws --version
-
-      - name: Update config for eks cluster
-        run: aws eks update-kubeconfig --name eks
+#  aws_eks:
+#    needs: [terraform]
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v2
+#
+#      - name: Setup Terraform
+#        uses: hashicorp/setup-terraform@v1
+#        with:
+#          cli_config_credentials_token: ${{ secrets.TF_API_TOKEN }}
+#          terraform_wrapper: false
+#
+#      - name: Terraform Init
+#        id: init
+#        run: terraform init
+#
+#      - name: Terraform Validate
+#        id: validate
+#        run: terraform validate -no-color
+#
+#      - name: Check version
+#        run: aws --version
+#
+#      - name: Update config for eks cluster
+#        run: aws eks update-kubeconfig --name eks
 
   k8s:
     needs: [aws_eks]
