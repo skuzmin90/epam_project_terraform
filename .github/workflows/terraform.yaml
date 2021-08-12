@@ -100,7 +100,7 @@ jobs:
 #        run: aws eks update-kubeconfig --name eks
 
   k8s:
-    needs: [aws_eks]
+    needs: [terraform]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
