@@ -64,7 +64,7 @@ jobs:
         run: aws --version
 
       - name: Update config for eks cluster
-        run: aws eks update-kubeconfig --name eks
+        run: aws eks --region us-east-1 update-kubeconfig --name eks
 
     outputs:
       db_host: "${{ steps.terraform-output.outputs.db_host }}"
