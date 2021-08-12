@@ -18,6 +18,23 @@ output "vpc_id" {
   value       = aws_vpc.vpc.id
   description = "VPC id"
 }
+
+output "db_host" {
+  value = aws_db_instance.postgresql.endpoint
+}
+
+output "db_name" {
+  value = aws_db_instance.postgresql.name
+}
+
+output "db_user" {
+  value = aws_db_instance.postgresql.username
+}
+
+output "db_password" {
+  value = aws_db_instance.postgresql.password
+}
+
 //
 //output "endpoint" {
 //  value = aws_eks_cluster.eks.endpoint
