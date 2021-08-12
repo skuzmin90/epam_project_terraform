@@ -91,7 +91,7 @@ jobs:
         run: aws --version
 
       - name: Update config for eks cluster
-        run: aws eks --region us-east-1 update-kubeconfig --name eks
+        run: aws eks update-kubeconfig --name eks
 
   k8s:
     needs: [aws_eks]
