@@ -67,10 +67,10 @@ jobs:
 
     outputs:
       vpc_id: "${{ steps.terraform-output.outputs.vpc_id }}"
-      db_host: "${{ steps.terraform-output.outputs. }}"
-      db_name: "${{ steps.terraform-output.outputs. }}"
-      db_user: "${{ steps.terraform-output.outputs. }}"
-      db_password: "${{ steps.terraform-output.outputs. }}"
+      db_host: "${{ steps.terraform-output.outputs.db_host }}"
+      db_name: "${{ steps.terraform-output.outputs.db_name }}"
+      db_user: "${{ steps.terraform-output.outputs.db_user }}"
+      db_password: "${{ steps.terraform-output.outputs.db_password }}"
 
 
   aws_eks:
