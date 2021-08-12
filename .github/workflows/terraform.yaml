@@ -84,11 +84,6 @@ jobs:
       - name: Update config for eks cluster
         run: aws eks --region us-east-1 update-kubeconfig --name eks
 
-  k8s:
-    needs: [aws_eks]
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
       - name: Set env
         run: |
           echo "DB_HOST=${{ needs.terraform.outputs.db_host }}" >> $GITHUB_ENV
