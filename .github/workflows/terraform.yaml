@@ -91,16 +91,42 @@ jobs:
           echo "DB_USER=${{ needs.terraform.outputs.db_user }}" >> $GITHUB_ENV
           echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
 
-      - name: Get all nodes
-        run: kubectl get nodes
-
       - name: Create flask-webapp Deployment
         working-directory: ./k8s
         run: |
-          cat webapp.yaml | envsubst | kubectl apply -f -
-          kubectl get all
+          kubectl create namespace production && kubectl create namespace prometheus
+          cat webapp.yaml | envsubst | kubectl apply -f - -n production
+          kubectl get services
 
+  prometheus:
+    needs: [aws_eks]
+    runs-on: ubuntu-18.04
+    steps:
+      - uses: actions/checkout@v2
 
+      - uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Update config for eks cluster
+        run: aws eks --region us-east-1 update-kubeconfig --name eks
+
+      - name: Install Helm
+        run: |
+          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
+          chmod 700 get_helm.sh
+          ./get_helm.sh
+
+      - name: Install Prometheus
+        run: |
+          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
+          helm upgrade -i prometheus prometheus-community/prometheus \
+              --namespace prometheus \
+              --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
+          kubectl get pods -n prometheus
+          kubectl --namespace=prometheus port-forward deploy/prometheus-server 9090
 
 
         #      - name: Update Pull Request
