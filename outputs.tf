@@ -23,6 +23,10 @@ output "db_host" {
   value = aws_db_instance.postgresql.endpoint
 }
 
+output "db_host_2" {
+  value = aws_db_instance.postgresql.address
+}
+
 output "db_name" {
   value = aws_db_instance.postgresql.name
 }
