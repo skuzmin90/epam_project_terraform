@@ -57,6 +57,8 @@ resource "aws_eks_node_group" "nodes-general" {
     aws_iam_role_policy_attachment.eks-worker-node-policy,
     aws_iam_role_policy_attachment.eks-cni-node-policy,
     aws_iam_role_policy_attachment.ec2-container-registry-read-only,
+    aws_route_table_association.private-association-1,
+    aws_route_table_association.private-association-2
   ]
   tags   = {
     Name = "nodes-general"
