@@ -37,11 +37,12 @@ resource "aws_eks_node_group" "nodes-general" {
   node_role_arn   = aws_iam_role.nodes-general.arn
   subnet_ids      = [
     aws_subnet.private-1.id,
-    aws_subnet.private-2.id
+    aws_subnet.private-2.id,
+    aws_subnet.private-3.id
   ]
   scaling_config {
-    desired_size = 4
-    max_size     = 4
+    desired_size = 6
+    max_size     = 6
     min_size     = 1
   }
   ami_type             = "AL2_x86_64"
@@ -58,7 +59,8 @@ resource "aws_eks_node_group" "nodes-general" {
     aws_iam_role_policy_attachment.eks-cni-node-policy,
     aws_iam_role_policy_attachment.ec2-container-registry-read-only,
     aws_route_table_association.private-association-1,
-    aws_route_table_association.private-association-2
+    aws_route_table_association.private-association-2,
+    aws_route_table_association.private-association-3
   ]
   tags   = {
     Name = "nodes-general"
