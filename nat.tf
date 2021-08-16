@@ -6,10 +6,6 @@ resource "aws_eip" "nat-2" {
   depends_on = [aws_internet_gateway.igw]
 }
 
-resource "aws_eip" "nat-3" {
-  depends_on = [aws_internet_gateway.igw]
-}
-
 resource "aws_nat_gateway" "gw-1" {
   allocation_id = aws_eip.nat-1.id
   subnet_id     = aws_subnet.public-1.id
@@ -23,13 +19,5 @@ resource "aws_nat_gateway" "gw-2" {
   subnet_id     = aws_subnet.public-2.id
   tags = {
     Name = "NAT-2"
-  }
-}
-
-resource "aws_nat_gateway" "gw-3" {
-  allocation_id = aws_eip.nat-3.id
-  subnet_id     = aws_subnet.public-3.id
-  tags = {
-    Name = "NAT-3"
   }
 }
