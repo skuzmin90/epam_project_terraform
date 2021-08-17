@@ -96,7 +96,8 @@ jobs:
         run: |
           kubectl create namespace production && kubectl create namespace prometheus
           cat webapp.yaml | envsubst | kubectl apply -f - -n production
-          kubectl get services
+          sleep 20
+          kubectl get services -n production
 
 #  prometheus:
 #    needs: [aws_eks]
