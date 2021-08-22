@@ -9,6 +9,11 @@ output "ecr_secret_key" {
   sensitive   = true
 }
 
+output "ecr_arn" {
+  value       = aws_ecr_repository.github-actions.arn
+}
+aws_ecr_repository.github-actions.arn
+
 output "db_host" {
   value       = aws_db_instance.postgresql.address
   description = "DB host"

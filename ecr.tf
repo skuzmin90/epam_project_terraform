@@ -45,7 +45,7 @@ resource "aws_iam_role" "ecr-role" {
                 "ecr:UploadLayerPart",
                 "ecr:CompleteLayerUpload"
             ],
-            "Resource": aws_ecr_repository.github-actions.arn:repository/github-actions
+            "Resource": aws_ecr_repository.github-actions.arn
         }
     ]
 })
