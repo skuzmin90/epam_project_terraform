@@ -83,7 +83,7 @@ jobs:
         run: aws --version
 
       - name: Update config for eks cluster
-        run: aws eks --region ${{ aws_region }} update-kubeconfig --name eks
+        run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name eks
 #
 #      - name: Set env
 #        run: |
