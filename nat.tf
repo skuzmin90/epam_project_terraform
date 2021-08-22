@@ -3,7 +3,7 @@ resource "aws_eip" "nat-1" {
 }
 
 resource "aws_eip" "nat-2" {
-  depends_on = [aws_internet_gateway.igw]
+  depends_on = [aws_eip.nat-1]
 }
 
 resource "aws_nat_gateway" "gw-1" {
