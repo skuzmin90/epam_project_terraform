@@ -4,10 +4,10 @@ on:
   workflow_dispatch:
     push:
       branches:
-        - master
+        - main
     pull_request:
       branches:
-        - master
+        - main
 
 jobs:
   terraform:
@@ -59,6 +59,7 @@ jobs:
           echo ::set-output name=db_name::$(terraform output db_name)
           echo ::set-output name=db_user::$(terraform output db_user)
           echo ::set-output name=db_password::$(terraform output db_password)
+          echo ::set-output name=ecr_image::$(terraform output )
 
     outputs:
       db_host: "${{ steps.terraform-output.outputs.db_host }}"
@@ -76,28 +77,28 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
+          aws-region: ${{ secrets.AWS_REGION }}
 
       - name: Check version
         run: aws --version
 
       - name: Update config for eks cluster
-        run: aws eks --region us-east-1 update-kubeconfig --name eks
-
-      - name: Set env
-        run: |
-          echo "DB_HOST=${{ needs.terraform.outputs.db_host }}" >> $GITHUB_ENV
-          echo "DB_NAME=${{ needs.terraform.outputs.db_name }}" >> $GITHUB_ENV
-          echo "DB_USER=${{ needs.terraform.outputs.db_user }}" >> $GITHUB_ENV
-          echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
-
+        run: aws eks --region ${{ aws_region }} update-kubeconfig --name eks
+#
+#      - name: Set env
+#        run: |
+#          echo "DB_HOST=${{ needs.terraform.outputs.db_host }}" >> $GITHUB_ENV
+#          echo "DB_NAME=${{ needs.terraform.outputs.db_name }}" >> $GITHUB_ENV
+#          echo "DB_USER=${{ needs.terraform.outputs.db_user }}" >> $GITHUB_ENV
+#          echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
+#
       - name: Create flask-webapp Deployment
         working-directory: ./k8s
         run: |
-          kubectl create namespace production && kubectl create namespace prometheus
-          cat webapp.yaml | envsubst | kubectl apply -f - -n production
-          sleep 20
-          kubectl get services -n production
+          kubectl create namespace prod && kubectl create namespace test && kubectl create namespace prometheus
+#          cat webapp.yaml | envsubst | kubectl apply -f - -n production
+#          sleep 20
+#          kubectl get services -n production
 
 #  prometheus:
 #    needs: [aws_eks]

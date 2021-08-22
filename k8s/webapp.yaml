@@ -2,18 +2,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: webapp
+  name: app
   labels:
-    app: webapp
+    app: app
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: webapp
+      app: app
   template:
     metadata:
       labels:
-        app: webapp
+        app: app
     spec:
       containers:
         - env:
@@ -41,7 +41,7 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-internal: 0.0.0.0/0
 spec:
   selector:
-    app: webapp
+    app: app
   type: LoadBalancer
   ports:
     - protocol: "TCP"
@@ -58,7 +58,7 @@ metadata:
     service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: 'true'
 spec:
   selector:
-    app: webapp
+    app: app
   type: LoadBalancer
   ports:
     - protocol: "TCP"

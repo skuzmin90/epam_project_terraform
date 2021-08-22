@@ -40,8 +40,8 @@ resource "aws_eks_node_group" "nodes-general" {
     aws_subnet.private-2.id
   ]
   scaling_config {
-    desired_size = 8
-    max_size     = 9
+    desired_size = 3
+    max_size     = 3
     min_size     = 1
   }
   ami_type             = "AL2_x86_64"
