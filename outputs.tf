@@ -1,23 +1,3 @@
-output "ecr_access_key" {
-  value       = aws_iam_access_key.ecr.id
-  description = "AWS_ACCESS_KEY to publish to ECR"
-}
-
-output "ecr_secret_key" {
-  value       = aws_iam_access_key.ecr.secret
-  description = "AWS_SECRET_ACCESS_KEY to upload to the ECR"
-  sensitive   = true
-}
-
-output "ecr_url" {
-  value       = aws_ecr_repository.github_actions.repository_url
-  description = "The ECR repository URL"
-}
-
-output "ecr_arn" {
-  value       = aws_ecr_repository.github_actions.arn
-}
-
 output "db_host" {
   value       = aws_db_instance.postgresql.address
   description = "DB host"

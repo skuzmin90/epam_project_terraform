@@ -93,7 +93,6 @@ jobs:
 #          echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
 #
       - name: Create flask-webapp Deployment
-        working-directory: ./k8s
         run: |
           kubectl create namespace prod && kubectl create namespace test && kubectl create namespace prometheus
 #          cat webapp.yaml | envsubst | kubectl apply -f - -n production
