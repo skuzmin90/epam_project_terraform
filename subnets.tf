@@ -8,6 +8,7 @@ resource "aws_subnet" "public-1" {
     "kubernetes.io/cluster/eks" = "shared"
     "kubernetes.io/role/elb"    = 1
   }
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_subnet" "public-2" {
@@ -20,6 +21,7 @@ resource "aws_subnet" "public-2" {
     "kubernetes.io/cluster/eks" = "shared"
     "kubernetes.io/role/elb"    = 1
   }
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_subnet" "private-1" {
@@ -31,6 +33,7 @@ resource "aws_subnet" "private-1" {
     "kubernetes.io/cluster/eks"       = "shared"
     "kubernetes.io/role/internal-elb" = 1
   }
+  depends_on = [aws_vpc.vpc]
 }
 
 resource "aws_subnet" "private-2" {
@@ -42,4 +45,5 @@ resource "aws_subnet" "private-2" {
     "kubernetes.io/cluster/eks"       = "shared"
     "kubernetes.io/role/internal-elb" = 1
   }
+  depends_on = [aws_vpc.vpc]
 }

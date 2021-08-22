@@ -28,7 +28,7 @@ resource "aws_route_table" "public-rt" {
   tags = {
     Name = "public-rt"
   }
-  depends_on = [aws_vpc.vpc, aws_internet_gateway.igw]
+  depends_on = [aws_internet_gateway.igw]
 }
 
 resource "aws_route_table" "private-rt-1" {
