@@ -29,5 +29,5 @@ resource "aws_db_instance" "postgresql" {
   tags = {
     Name = "PostgreSQL"
   }
-  depends_on = [aws_security_group.database-sg, aws_db_subnet_group.db-group]
+  depends_on = [aws_db_subnet_group.db-group, aws_security_group.database-sg]
 }
