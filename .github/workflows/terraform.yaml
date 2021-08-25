@@ -84,13 +84,8 @@ jobs:
 
       - name: Update config for eks cluster
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name eks
-#
-#      - name: Set env
-#        run: |
-#          echo "DB_HOST=${{ needs.terraform.outputs.db_host }}" >> $GITHUB_ENV
-#          echo "DB_NAME=${{ needs.terraform.outputs.db_name }}" >> $GITHUB_ENV
-#          echo "DB_USER=${{ needs.terraform.outputs.db_user }}" >> $GITHUB_ENV
-#          echo "DB_PASSWORD=${{ needs.terraform.outputs.db_password }}" >> $GITHUB_ENV
+        continue-on-error: true
+
 #
       - name: Create flask-webapp Deployment
         run: |
