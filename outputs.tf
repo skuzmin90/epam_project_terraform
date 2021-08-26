@@ -20,6 +20,5 @@ output "db_user" {
 
 output "db_password" {
   value       = aws_db_instance.postgresql.password
-  sensitive   = true
   description = "DB password"
 }
