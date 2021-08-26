@@ -3,6 +3,11 @@ output "db_host" {
   description = "DB host"
 }
 
+output "db" {
+  value       = aws_db_instance.postgresql.endpoint
+  description = "DB endpoint"
+}
+
 output "db_name" {
   value       = aws_db_instance.postgresql.name
   description = "DB name"

@@ -40,15 +40,6 @@ resource "aws_eks_cluster" "eks" {
       aws_subnet.public-1.id,
       aws_subnet.public-2.id]
   }
-  depends_on = [
-    aws_iam_role_policy_attachment.eks-cluster-policy,
-    aws_iam_role_policy_attachment.eks-vpc-policy,
-    aws_route_table_association.public-association-1,
-    aws_route_table_association.public-association-2,
-    aws_route_table_association.private-association-1,
-    aws_route_table_association.private-association-2,
-
-  ]
   tags = {
     Name = "eks"
   }

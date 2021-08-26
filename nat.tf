@@ -1,9 +1,7 @@
 resource "aws_eip" "nat-1" {
-  depends_on = [aws_internet_gateway.igw]
 }
 
 resource "aws_eip" "nat-2" {
-  depends_on = [aws_eip.nat-1]
 }
 
 resource "aws_nat_gateway" "gw-1" {
@@ -12,7 +10,6 @@ resource "aws_nat_gateway" "gw-1" {
   tags = {
     Name = "NAT-1"
   }
-  depends_on = [aws_eip.nat-1, aws_subnet.public-1]
 }
 
 resource "aws_nat_gateway" "gw-2" {
@@ -21,5 +18,4 @@ resource "aws_nat_gateway" "gw-2" {
   tags = {
     Name = "NAT-2"
   }
-  depends_on = [aws_eip.nat-2, aws_subnet.public-2]
 }

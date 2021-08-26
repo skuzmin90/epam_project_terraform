@@ -87,74 +87,9 @@ jobs:
         continue-on-error: true
 
 #
-      - name: Create flask-webapp Deployment
+      - name: Create namespaces
         run: |
           kubectl create namespace prod && kubectl create namespace test && kubectl create namespace prometheus
 #          cat webapp.yaml | envsubst | kubectl apply -f - -n production
 #          sleep 20
 #          kubectl get services -n production
-
-#  prometheus:
-#    needs: [aws_eks]
-#    runs-on: ubuntu-18.04
-#    steps:
-#      - uses: actions/checkout@v2
-#
-#      - uses: aws-actions/configure-aws-credentials@v1
-#        with:
-#          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-#          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-#          aws-region: us-east-1
-#
-#      - name: Update config for eks cluster
-#        run: aws eks --region us-east-1 update-kubeconfig --name eks
-#
-#      - name: Install Helm
-#        run: |
-#          curl -fsSL -o get_helm.sh https://raw.githubusercontent.com/helm/helm/master/scripts/get-helm-3
-#          chmod 700 get_helm.sh
-#          ./get_helm.sh
-#
-#      - name: Install Prometheus
-#        run: |
-#          helm repo add prometheus-community https://prometheus-community.github.io/helm-charts
-#          helm upgrade -i prometheus prometheus-community/prometheus \
-#              --namespace prometheus \
-#              --set alertmanager.persistentVolume.storageClass="gp2",server.persistentVolume.storageClass="gp2"
-#          kubectl get pods -n prometheus
-#          kubectl --namespace=prometheus port-forward deploy/prometheus-server 9090
-#
-
-        #      - name: Update Pull Request
-#        uses: actions/github-script@0.9.0
-#        if: github.event_name == 'pull_request'
-#        env:
-#          PLAN: "terraform\n${{ steps.plan.outputs.stdout }}"
-#        with:
-#          github-token: ${{ secrets.GITHUB_TOKEN }}
-#          script: |
-#            const output = `#### Terraform Format and Style 🖌\`${{ steps.fmt.outcome }}\`
-#            #### Terraform Initialization ⚙️\`${{ steps.init.outcome }}\`
-#            #### Terraform Plan 📖\`${{ steps.plan.outcome }}\`
-#            #### Terraform Validation 🤖\`${{ steps.validate.outcome }}\`
-#
-#            <details><summary>Show Plan</summary>
-#
-#            \`\`\`\n
-#            ${process.env.PLAN}
-#            \`\`\`
-#
-#            </details>
-#
-#            *Pusher: @${{ github.actor }}, Action: \`${{ github.event_name }}\`*`;
-#
-#            github.issues.createComment({
-#              issue_number: context.issue.number,
-#              owner: context.repo.owner,
-#              repo: context.repo.repo,
-#              body: output
-#            })
-
-#      - name: Terraform Plan Status
-#        if: steps.plan.outcome == 'failure'
-#        run: exit 1

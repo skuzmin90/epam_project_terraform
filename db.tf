@@ -5,12 +5,6 @@ resource "aws_db_subnet_group" "db-group" {
     aws_subnet.private-1.id,
     aws_subnet.private-2.id
   ]
-  depends_on = [
-    aws_subnet.private-1,
-    aws_subnet.private-2,
-    aws_subnet.public-1,
-    aws_subnet.public-2
-  ]
 }
 
 resource "aws_db_instance" "postgresql" {
@@ -29,5 +23,4 @@ resource "aws_db_instance" "postgresql" {
   tags = {
     Name = "PostgreSQL"
   }
-  depends_on = [aws_db_subnet_group.db-group, aws_security_group.database-sg]
 }
