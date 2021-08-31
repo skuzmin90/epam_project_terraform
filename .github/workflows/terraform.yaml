@@ -55,17 +55,10 @@ jobs:
       - name: Terraform Output
         id: terraform-output
         run: |
-          echo ::set-output name=db_host::$(terraform output db_host)
-          echo ::set-output name=db_name::$(terraform output db_name)
-          echo ::set-output name=db_user::$(terraform output db_user)
-          echo ::set-output name=db_password::$(terraform output db_password)
-          echo ::set-output name=ecr_image::$(terraform output )
+          echo ::set-output name=eks_cluster_name::$(terraform output eks_cluster_name)
 
     outputs:
-      db_host: "${{ steps.terraform-output.outputs.db_host }}"
-      db_name: "${{ steps.terraform-output.outputs.db_name }}"
-      db_user: "${{ steps.terraform-output.outputs.db_user }}"
-      db_password: "${{ steps.terraform-output.outputs.db_password }}"
+      eks_cluster_name: "${{ steps.terraform-output.outputs.eks_cluster_name }}"
 
   aws_eks:
     needs: [terraform]
@@ -86,10 +79,13 @@ jobs:
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name eks
         continue-on-error: true
 
-#
       - name: Create namespaces
+        env:
+          EKS_NAME: ${{ needs.terraform.outputs.eks_cluster_name }}
+        working-directory: ./k8s
         run: |
-          kubectl create namespace prod && kubectl create namespace test && kubectl create namespace prometheus
-#          cat webapp.yaml | envsubst | kubectl apply -f - -n production
-#          sleep 20
-#          kubectl get services -n production
+          kubectl create namespace prod && kubectl create namespace test
+          kubectl apply -f cloudwatch-namespace.yaml
+          kubectl apply -f cwagent-serviceaccount.yaml
+          cat cwagent-configmap.yaml | envsubst | kubectl apply -f -
+          kubectl apply -f cwagent-daemonset.yaml

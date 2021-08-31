@@ -23,3 +23,8 @@ output "db_password" {
   description = "DB password"
   sensitive   = true
 }
+
+output "eks_cluster_name" {
+  value       = aws_eks_cluster.eks.name
+  description = "EKS cluster name"
+}
