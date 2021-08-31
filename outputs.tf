@@ -24,6 +24,7 @@ output "db_password" {
   sensitive   = true
 }
 
-output "" {
-  value = ""
+output "eks_cluster_name" {
+  value       = aws_eks_cluster.eks.name
+  description = "EKS cluster name"
 }
