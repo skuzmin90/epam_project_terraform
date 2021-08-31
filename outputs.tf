@@ -23,3 +23,7 @@ output "db_password" {
   description = "DB password"
   sensitive   = true
 }
+
+output "" {
+  value = ""
+}
