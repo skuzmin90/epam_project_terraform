@@ -85,4 +85,7 @@ jobs:
         working-directory: ./k8s
         run: |
           kubectl create namespace prod && kubectl create namespace test
-          cat cwagent-configmap.yaml | envsubst
+          kubectl apply -f cloudwatch-namespace.yaml
+          kubectl apply -f cwagent-serviceaccount.yaml
+          kubectl apply -f cwagent-configmap.yaml
+          kubectl apply -f cwagent-daemonset.yaml
