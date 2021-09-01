@@ -30,6 +30,8 @@ resource "aws_eks_cluster" "eks" {
   name     = "eks"
   role_arn = aws_iam_role.eks-cluster.arn
   version  = "1.21"
+  enabled_cluster_log_types = ["api", "audit"]
+  depends_on = [aws_cloudwatch_log_group.eks-logs]
   vpc_config {
     endpoint_private_access = false
     endpoint_public_access  = true
@@ -43,4 +45,9 @@ resource "aws_eks_cluster" "eks" {
   tags = {
     Name = "eks"
   }
+}
+
+resource "aws_cloudwatch_log_group" "eks-logs" {
+  name              = "/aws/eks/${aws_eks_cluster.eks.name}/cluster"
+  retention_in_days = 7
 }
