@@ -40,13 +40,13 @@ resource "aws_eks_node_group" "nodes-general" {
     aws_subnet.private-2.id
   ]
   scaling_config {
-    desired_size = 5
+    desired_size = 4
     max_size     = 5
     min_size     = 1
   }
   ami_type             = "AL2_x86_64"
   capacity_type        = "ON_DEMAND"
-  disk_size            = 10
+  disk_size            = 20
   force_update_version = false
   instance_types       = ["t2.micro"]
   labels               = {
