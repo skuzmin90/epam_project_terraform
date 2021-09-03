@@ -31,6 +31,11 @@ resource "aws_iam_role_policy_attachment" "ec2-container-registry-read-only" {
   role       = aws_iam_role.nodes-general.name
 }
 
+resource "aws_iam_role_policy_attachment" "cloudwatch-logs-full-access" {
+  policy_arn = "arn:aws:iam::aws:policy/CloudWatchLogsFullAccess"
+  role       = aws_iam_role.nodes-general.name
+}
+
 resource "aws_eks_node_group" "nodes-general" {
   cluster_name    = aws_eks_cluster.eks.name
   node_group_name = "nodes-general"
@@ -56,7 +61,8 @@ resource "aws_eks_node_group" "nodes-general" {
   depends_on = [
     aws_iam_role_policy_attachment.eks-worker-node-policy,
     aws_iam_role_policy_attachment.eks-cni-node-policy,
-    aws_iam_role_policy_attachment.ec2-container-registry-read-only
+    aws_iam_role_policy_attachment.ec2-container-registry-read-only,
+    aws_iam_role_policy_attachment.cloudwatch-logs-full-access
   ]
   tags   = {
     Name = "nodes-general"

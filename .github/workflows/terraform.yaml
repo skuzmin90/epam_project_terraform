@@ -82,7 +82,9 @@ jobs:
       - name: Create namespaces
         env:
           EKS_NAME: ${{ needs.terraform.outputs.eks_cluster_name }}
+          REGION: ${{ secrets.AWS_REGION }}
         working-directory: ./k8s
         run: |
           kubectl create namespace prod && kubectl create namespace test
+          cat amazon-cloudwatch.yaml | sed "s/{{cluster_name}}/$EKS_NAME/;s/{{region_name}}/$REGION/" | kubectl apply -f -
           kubectl apply -f metrics-server.yaml
