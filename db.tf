@@ -11,7 +11,7 @@ resource "aws_db_instance" "postgresql" {
   engine_version = "10.17"
   publicly_accessible = true
   allocated_storage = 10
-  max_allocated_storage = 25
+  max_allocated_storage = 15
   username = "${var.DB_USER}"
   password = "${var.DB_PASSWORD}"
   name = "${var.DB_NAME}"

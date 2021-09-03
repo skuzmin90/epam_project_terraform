@@ -85,5 +85,4 @@ jobs:
         working-directory: ./k8s
         run: |
           kubectl create namespace prod && kubectl create namespace test
-          kubectl apply -f cloudwatch-namespace.yaml
           kubectl apply -f metrics-server.yaml
