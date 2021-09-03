@@ -85,6 +85,5 @@ jobs:
           REGION: ${{ secrets.AWS_REGION }}
         working-directory: ./k8s
         run: |
-          kubectl create namespace prod && kubectl create namespace test
-          cat amazon-cloudwatch.yaml | sed "s/{{cluster_name}}/$EKS_NAME/;s/{{region_name}}/$REGION/" | kubectl apply -f - | cat amazon-cloudwatch.yaml
+          sed "s/{{cluster_name}}/$EKS_NAME/;s/{{region_name}}/$REGION/" amazon-cloudwatch.yaml | kubectl apply -f - | cat amazon-cloudwatch.yaml
           kubectl apply -f metrics-server.yaml
