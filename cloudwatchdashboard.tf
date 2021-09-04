@@ -1,5 +1,6 @@
-resource "aws_cloudwatch_dashboard" "eks-cluster" {
-  dashboard_name = "eks-cluster"
+resource "aws_cloudwatch_dashboard" "main" {
+  dashboard_name = "my-dashboard"
+
   dashboard_body = <<EOF
 {
   "widgets": [
@@ -23,7 +24,6 @@ resource "aws_cloudwatch_dashboard" "eks-cluster" {
         "region": "eu-central-1",
         "title": "EC2 Instance CPU"
       }
-    },
     }
   ]
 }
