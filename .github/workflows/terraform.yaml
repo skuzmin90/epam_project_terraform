@@ -85,5 +85,5 @@ jobs:
           REGION: eu-central-1
         working-directory: ./k8s
         run: |
-          sed "s/{{cluster_name}}/${EKS_NAME}/;s/{{region_name}}/${aws_region}/" amazon-cloudwatch.yaml | kubectl apply -f -
+          sed "s/{{cluster_name}}/${EKS_NAME}/;s/{{region_name}}/${REGION}/" amazon-cloudwatch.yaml | kubectl apply -f -
           kubectl apply -f metrics-server.yaml
