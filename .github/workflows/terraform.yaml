@@ -82,5 +82,5 @@ jobs:
       - name: Monitoring
         working-directory: ./k8s
         run: |
-          sed -i -e "s/{{cluster_name}}/eks/;s/{{region_name}}/eu-central-1/" amazon-cloudwatch.yaml | kubectl apply -f -
+          sed -i -e "s/{{cluster_name}}/eks/;s/{{region_name}}/eu-central-1/" amazon-cloudwatch.yaml | kubectl apply -f amazon-cloudwatch.yaml
           kubectl apply -f metrics-server.yaml
