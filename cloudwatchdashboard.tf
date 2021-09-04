@@ -1,6 +1,5 @@
 resource "aws_cloudwatch_dashboard" "eks-cluster" {
   dashboard_name = "eks-cluster"
-
   dashboard_body = <<EOF
 {
   "widgets": [
@@ -16,7 +15,7 @@ resource "aws_cloudwatch_dashboard" "eks-cluster" {
             "AWS/EC2",
             "CPUUtilization",
             "InstanceId",
-            "i-012345"
+            "*"
           ]
         ],
         "period": 300,
@@ -25,15 +24,6 @@ resource "aws_cloudwatch_dashboard" "eks-cluster" {
         "title": "EC2 Instance CPU"
       }
     },
-    {
-      "type": "text",
-      "x": 0,
-      "y": 7,
-      "width": 3,
-      "height": 3,
-      "properties": {
-        "markdown": "Hello world"
-      }
     }
   ]
 }
