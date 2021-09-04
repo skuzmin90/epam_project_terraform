@@ -60,7 +60,7 @@ jobs:
     outputs:
       eks_cluster_name: "${{ steps.terraform-output.outputs.eks_cluster_name }}"
 
-  aws_eks:
+  monitoring:
     needs: [terraform]
     runs-on: ubuntu-18.04
     steps:
@@ -79,11 +79,11 @@ jobs:
         run: aws eks --region ${{ secrets.AWS_REGION }} update-kubeconfig --name eks
         continue-on-error: true
 
-      - name: Create namespaces
+      - name: Monitoring
         env:
           EKS_NAME: ${{ needs.terraform.outputs.eks_cluster_name }}
-          REGION: ${{ secrets.AWS_REGION }}
+          REGION: eu-central-1
         working-directory: ./k8s
         run: |
-          sed "s/{{cluster_name}}/eks/;s/{{region_name}}/eu-central-1/" amazon-cloudwatch.yaml | kubectl apply -f -
+          sed "s/{{cluster_name}}/$EKS_NAME/;s/{{region_name}}/$REGION/" amazon-cloudwatch.yaml | kubectl apply -f - | cat amazon-cloudwatch.yaml
           kubectl apply -f metrics-server.yaml
