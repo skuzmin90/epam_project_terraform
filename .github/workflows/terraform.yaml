@@ -50,13 +50,9 @@ jobs:
       - name: Terraform Output
         id: terraform-output
         run: |
-#          echo ::set-output name=eks_cluster_name::$(terraform output eks_cluster_name)
           terraform output db_host
           terraform output db_name
           terraform output db_user
-
-#    outputs:
-#      eks_cluster_name: "${{ steps.terraform-output.outputs.eks_cluster_name }}"
 
   monitoring:
     needs: [terraform]
